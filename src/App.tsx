@@ -93,22 +93,9 @@ export default function App() {
     return 'centro';
   });
 
-  const [isClimateModalOpen, setIsClimateModalOpen] = useState<boolean>(() => {
-    try {
-      const saved = localStorage.getItem(CLIMATE_STORAGE_KEY);
-      return !saved; // Ask location on initial app load if not previously configured
-    } catch {
-      return false;
-    }
-  });
+  const [isClimateModalOpen, setIsClimateModalOpen] = useState<boolean>(false);
 
-  const [isFirstVisit, setIsFirstVisit] = useState<boolean>(() => {
-    try {
-      return !localStorage.getItem(CLIMATE_STORAGE_KEY);
-    } catch {
-      return false;
-    }
-  });
+  const [isFirstVisit, setIsFirstVisit] = useState<boolean>(false);
 
   // Active Plantings State
   const [plantings, setPlantings] = useState<ActivePlanting[]>(() => {
