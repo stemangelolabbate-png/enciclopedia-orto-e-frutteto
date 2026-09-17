@@ -44,28 +44,28 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
   return (
     <div
       id="climate-modal-overlay"
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 md:p-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/70 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
     >
       <div
         id="climate-modal-content"
-        className="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-stone-200 overflow-hidden"
+        className="relative bg-white w-full max-w-2xl rounded-t-3xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden max-h-[92vh] sm:max-h-[85vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-stone-900 text-white p-6 sm:p-7 flex items-start justify-between border-b border-stone-800">
-          <div className="flex items-center space-x-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-600/30 border border-emerald-500/40 flex items-center justify-center text-2xl">
-              <MapPin className="w-6 h-6 text-emerald-400" />
+        <div className="bg-stone-900 text-white p-4 sm:p-7 flex items-start justify-between border-b border-stone-800 shrink-0">
+          <div className="flex items-center space-x-3 sm:space-x-3.5 min-w-0 pr-2">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-emerald-600/30 border border-emerald-500/40 flex items-center justify-center text-xl sm:text-2xl shrink-0">
+              <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
             </div>
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800/60 text-[11px] font-semibold mb-1">
+            <div className="min-w-0">
+              <div className="inline-flex items-center gap-1.5 px-2 sm:px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800/60 text-[10px] sm:text-[11px] font-semibold mb-1">
                 <span>Personalizzazione Geografica</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-tight">
+              <h2 className="text-lg sm:text-2xl font-serif font-bold text-white tracking-tight truncate">
                 Dove si trova il tuo orto?
               </h2>
-              <p className="text-xs sm:text-sm text-stone-300 mt-0.5">
-                Seleziona la tua zona climatica per adattare date di semina, trapianto e raccolto alle temperature reali del tuo territorio.
+              <p className="text-[11px] sm:text-sm text-stone-300 mt-0.5 line-clamp-2 sm:line-clamp-none">
+                Seleziona la tua zona per calibrare le date di semina e raccolto.
               </p>
             </div>
           </div>
@@ -74,7 +74,7 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
             <button
               id="btn-close-climate-modal"
               onClick={onClose}
-              className="p-2 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800 transition"
+              className="p-1.5 sm:p-2 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800 transition shrink-0"
               aria-label="Chiudi"
             >
               <X className="w-5 h-5" />
@@ -83,7 +83,7 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
         </div>
 
         {/* Zones List */}
-        <div className="p-6 space-y-3.5 max-h-[65vh] overflow-y-auto font-sans">
+        <div className="p-4 sm:p-6 space-y-3 sm:space-y-3.5 overflow-y-auto font-sans flex-1">
           {zones.map(({ id, icon, badge, color }) => {
             const info = CLIMATE_ZONES[id];
             const isSelected = selectedZone === id;
@@ -93,29 +93,29 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
                 key={id}
                 id={`climate-zone-card-${id}`}
                 onClick={() => onSelectZone(id)}
-                className={`p-4 sm:p-5 rounded-2xl border-2 cursor-pointer transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
+                className={`p-3.5 sm:p-5 rounded-2xl border-2 cursor-pointer transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
                   isSelected
                     ? 'border-emerald-600 bg-emerald-50/70 shadow-sm ring-2 ring-emerald-200'
                     : `border-stone-200 ${color}`
                 }`}
               >
-                <div className="flex items-start space-x-3.5">
-                  <div className="p-2.5 rounded-xl bg-white shadow-2xs border border-stone-200/80 shrink-0">
+                <div className="flex items-start space-x-3 sm:space-x-3.5 min-w-0">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-white shadow-2xs border border-stone-200/80 shrink-0">
                     {icon}
                   </div>
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <h3 className="text-base font-bold text-stone-900 font-serif">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
+                      <h3 className="text-sm sm:text-base font-bold text-stone-900 font-serif">
                         {info.nome}
                       </h3>
-                      <span className="text-[11px] px-2 py-0.5 rounded-md font-medium bg-white border border-stone-200 text-stone-600">
+                      <span className="text-[10px] sm:text-[11px] px-2 py-0.5 rounded-md font-medium bg-white border border-stone-200 text-stone-600">
                         {badge}
                       </span>
                     </div>
-                    <p className="text-xs text-stone-600 leading-relaxed">
+                    <p className="text-xs text-stone-600 leading-relaxed line-clamp-2 sm:line-clamp-none">
                       {info.descrizione}
                     </p>
-                    <p className="text-[11px] text-emerald-800 font-medium mt-1.5 bg-white/70 px-2.5 py-1 rounded-lg border border-emerald-100">
+                    <p className="text-[10px] sm:text-[11px] text-emerald-800 font-medium mt-1 bg-white/70 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border border-emerald-100 line-clamp-1 sm:line-clamp-none">
                       💡 {info.consiglio}
                     </p>
                   </div>
@@ -123,11 +123,11 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
 
                 <div className="shrink-0 flex items-center justify-end">
                   {isSelected ? (
-                    <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-xs">
-                      <Check className="w-5 h-5" />
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-xs">
+                      <Check className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                   ) : (
-                    <div className="w-8 h-8 rounded-full border-2 border-stone-300 flex items-center justify-center text-stone-400">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-stone-300 flex items-center justify-center text-stone-400">
                       <span className="w-2.5 h-2.5 rounded-full bg-transparent"></span>
                     </div>
                   )}
@@ -138,9 +138,9 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-4 sm:p-5 bg-stone-50 border-t border-stone-200 flex items-center justify-between">
+        <div className="p-3.5 sm:p-5 bg-stone-50 border-t border-stone-200 flex items-center justify-between shrink-0">
           <span className="text-xs text-stone-500">
-            Zona attiva: <strong className="text-stone-800">{CLIMATE_ZONES[selectedZone].titoloBreve}</strong> (puoi cambiarla in ogni momento dalla barra in alto)
+            Attiva: <strong className="text-stone-800">{CLIMATE_ZONES[selectedZone].titoloBreve}</strong>
           </span>
 
           <button

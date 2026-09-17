@@ -88,26 +88,26 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
   return (
     <div
       id="sowing-calculator-modal-overlay"
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 md:p-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
       onClick={onClose}
     >
       <div
         id="sowing-calculator-modal-content"
-        className="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-6 flex flex-col font-sans"
+        className="relative bg-white w-full max-w-2xl rounded-t-3xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden max-h-[92vh] sm:max-h-[85vh] flex flex-col font-sans"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-emerald-900 text-white p-5 sm:p-6 flex items-center justify-between border-b border-emerald-800">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-800/80 border border-emerald-700 flex items-center justify-center text-xl">
+        <div className="bg-emerald-900 text-white p-4 sm:p-6 flex items-center justify-between border-b border-emerald-800 shrink-0">
+          <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0 pr-2">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-800/80 border border-emerald-700 flex items-center justify-center text-lg sm:text-xl shrink-0">
               🧮
             </div>
-            <div>
-              <h2 className="text-xl font-bold font-serif text-white tracking-tight">
-                Calcolatore Giorni di Semina
+            <div className="min-w-0">
+              <h2 className="text-lg sm:text-xl font-bold font-serif text-white tracking-tight truncate">
+                Calcolatore di Semina
               </h2>
-              <p className="text-xs text-emerald-200">
-                Calcola giorni trascorsi, fase vegetativa e stima data di raccolta
+              <p className="text-[11px] sm:text-xs text-emerald-200 truncate">
+                Calcola giorni trascorsi, fase e data di raccolta
               </p>
             </div>
           </div>
@@ -115,7 +115,7 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
           <button
             id="btn-close-calc-modal"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-800 transition"
+            className="p-1.5 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-800 transition shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
@@ -343,11 +343,11 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 sm:p-5 bg-stone-50 border-t border-stone-200 flex items-center justify-between gap-3">
+        <div className="p-3.5 sm:p-5 bg-stone-50 border-t border-stone-200 flex items-center justify-between gap-2.5 shrink-0">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-xs sm:text-sm font-medium text-stone-600 hover:bg-stone-200 rounded-xl transition"
+            className="px-3.5 py-2.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-stone-600 hover:bg-stone-200 rounded-xl transition border border-stone-200 sm:border-0"
           >
             Chiudi
           </button>
@@ -356,10 +356,10 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
             id="btn-save-to-my-garden"
             type="button"
             onClick={handleSave}
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white text-xs sm:text-sm font-semibold shadow-sm transition"
+            className="flex-1 sm:flex-initial flex items-center justify-center space-x-2 px-4 py-2.5 sm:px-5 sm:py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white text-xs sm:text-sm font-semibold shadow-sm transition active:scale-95"
           >
-            <BookmarkPlus className="w-4 h-4" />
-            <span>Aggiungi al Mio Orto Virtuale</span>
+            <BookmarkPlus className="w-4 h-4 shrink-0" />
+            <span>Salva nel Mio Orto</span>
           </button>
         </div>
       </div>

@@ -25,20 +25,20 @@ export const CompanionGuide: React.FC<CompanionGuideProps> = ({
   };
 
   return (
-    <div id="companion-guide-section" className="space-y-6">
+    <div id="companion-guide-section" className="space-y-6 font-sans">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-emerald-900 to-stone-900 text-white rounded-3xl p-6 sm:p-8 shadow-md border border-emerald-800">
+      <div className="bg-gradient-to-r from-emerald-900 to-stone-900 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-md border border-emerald-800">
         <div className="max-w-3xl">
-          <div className="flex items-center space-x-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
-            <HeartHandshake className="w-4 h-4" />
+          <div className="flex items-center space-x-2 text-emerald-400 text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-1">
+            <HeartHandshake className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>Sinergie e Difesa Naturale</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+          <h2 className="text-xl sm:text-3xl font-serif font-bold text-white tracking-tight">
             Guida alle Consociazioni nell'Orto
           </h2>
-          <p className="text-stone-300 text-sm mt-1 leading-relaxed">
-            In natura le piante si aiutano reciprocamente: alcune erbe aromatiche allontanano gli insetti dannosi,
-            i legumi arricchiscono il terreno di azoto, e certe combinazioni esaltano il sapore del raccolto.
+          <p className="text-stone-300 text-xs sm:text-sm mt-1 leading-relaxed line-clamp-2 sm:line-clamp-none">
+            In natura le piante si aiutano a vicenda: alcune aromatiche allontanano gli insetti,
+            i legumi fissano l'azoto e certe unioni migliorano il sapore del raccolto.
           </p>
         </div>
       </div>
@@ -64,27 +64,27 @@ export const CompanionGuide: React.FC<CompanionGuideProps> = ({
         </div>
 
         {/* Selected Plant Dossier */}
-        <div className="p-5 rounded-2xl bg-stone-50 border border-stone-200">
-          <div className="flex items-center justify-between flex-wrap gap-4 border-b border-stone-200 pb-4 mb-4">
-            <div className="flex items-center space-x-3">
-              <span className="text-4xl p-2 rounded-2xl bg-white border border-stone-200 shadow-2xs">
+        <div className="p-4 sm:p-5 rounded-2xl bg-stone-50 border border-stone-200">
+          <div className="flex items-center justify-between flex-wrap gap-3 sm:gap-4 border-b border-stone-200 pb-3.5 sm:pb-4 mb-4">
+            <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0">
+              <span className="text-3xl sm:text-4xl p-1.5 sm:p-2 rounded-2xl bg-white border border-stone-200 shadow-2xs shrink-0">
                 {currentPlant.icona}
               </span>
-              <div>
-                <h3 className="text-xl font-bold text-stone-900 font-serif">
+              <div className="min-w-0">
+                <h3 className="text-lg sm:text-xl font-bold text-stone-900 font-serif truncate">
                   {currentPlant.nome}
                 </h3>
-                <p className="text-xs text-stone-500 italic">
-                  {currentPlant.nomeScientifico} · Famiglia {currentPlant.famiglia}
+                <p className="text-[11px] sm:text-xs text-stone-500 italic truncate">
+                  {currentPlant.nomeScientifico} · {currentPlant.famiglia}
                 </p>
               </div>
             </div>
 
             <button
               onClick={() => onSelectPlant(currentPlant)}
-              className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-300 text-stone-700 hover:bg-stone-100 flex items-center gap-1 shadow-2xs"
+              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-stone-300 text-stone-700 hover:bg-stone-100 flex items-center gap-1 shadow-2xs"
             >
-              <span>Vedi Scheda Completa</span>
+              <span>Vedi Scheda</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>

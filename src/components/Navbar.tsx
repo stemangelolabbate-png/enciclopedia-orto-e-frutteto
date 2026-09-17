@@ -32,21 +32,21 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div 
             id="brand-logo"
             onClick={() => onTabChange('enciclopedia')} 
-            className="flex items-center space-x-3 cursor-pointer group select-none"
+            className="flex items-center space-x-2.5 sm:space-x-3 cursor-pointer group select-none"
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center text-2xl shadow-inner group-hover:scale-105 transition-transform duration-200">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-emerald-600/25 border border-emerald-500/40 flex items-center justify-center text-xl sm:text-2xl shadow-inner group-hover:scale-105 transition-transform duration-200 shrink-0">
               🌱
             </div>
             <div>
-              <div className="flex items-center space-x-2">
-                <span className="font-serif font-bold text-lg sm:text-xl text-stone-100 tracking-tight">
-                  Enciclopedia dell'Orto
+              <div className="flex items-center space-x-1.5 sm:space-x-2">
+                <span className="font-serif font-bold text-base sm:text-xl text-stone-100 tracking-tight leading-tight">
+                  Enciclopedia Orto
                 </span>
-                <span className="hidden md:inline-block px-2 py-0.5 text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-700/50 rounded-full">
+                <span className="hidden sm:inline-block px-2 py-0.5 text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-700/50 rounded-full">
                   Virtuale
                 </span>
               </div>
-              <p className="text-xs text-stone-400 font-sans hidden sm:block">
+              <p className="text-[11px] sm:text-xs text-stone-400 font-sans hidden sm:block">
                 Ortaggi, Frutti, Aromatiche, Malattie & Giorni di Crescita
               </p>
             </div>
@@ -169,14 +169,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Mobile & Tablet Sub-Navigation */}
-        <div id="mobile-nav-tabs" className="xl:hidden flex items-center justify-between border-t border-stone-800 py-2.5 overflow-x-auto gap-1 text-xs no-scrollbar">
+        <div id="mobile-nav-tabs" className="xl:hidden flex items-center border-t border-stone-800/80 py-2 overflow-x-auto gap-1.5 text-xs no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
           <button
             id="mobile-tab-enciclopedia"
             onClick={() => onTabChange('enciclopedia')}
-            className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg whitespace-nowrap font-medium transition shrink-0 ${
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full whitespace-nowrap font-medium transition shrink-0 ${
               currentTab === 'enciclopedia'
-                ? 'bg-emerald-600 text-white'
-                : 'text-stone-400 hover:text-stone-200'
+                ? 'bg-emerald-600 text-white shadow-sm font-semibold'
+                : 'text-stone-300 bg-stone-800/60 hover:bg-stone-800 hover:text-stone-100'
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
@@ -186,10 +186,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             id="mobile-tab-orto"
             onClick={() => onTabChange('orto')}
-            className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg whitespace-nowrap font-medium transition shrink-0 ${
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full whitespace-nowrap font-medium transition shrink-0 ${
               currentTab === 'orto'
-                ? 'bg-emerald-600 text-white'
-                : 'text-stone-400 hover:text-stone-200'
+                ? 'bg-emerald-600 text-white shadow-sm font-semibold'
+                : 'text-stone-300 bg-stone-800/60 hover:bg-stone-800 hover:text-stone-100'
             }`}
           >
             <Sprout className="w-3.5 h-3.5" />
@@ -204,10 +204,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             id="mobile-tab-malattie"
             onClick={() => onTabChange('malattie')}
-            className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg whitespace-nowrap font-medium transition shrink-0 ${
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full whitespace-nowrap font-medium transition shrink-0 ${
               currentTab === 'malattie'
-                ? 'bg-amber-600 text-white'
-                : 'text-stone-400 hover:text-stone-200'
+                ? 'bg-amber-600 text-white shadow-sm font-semibold'
+                : 'text-stone-300 bg-stone-800/60 hover:bg-stone-800 hover:text-stone-100'
             }`}
           >
             <ShieldAlert className="w-3.5 h-3.5" />
@@ -217,10 +217,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             id="mobile-tab-calendario"
             onClick={() => onTabChange('calendario')}
-            className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg whitespace-nowrap font-medium transition shrink-0 ${
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full whitespace-nowrap font-medium transition shrink-0 ${
               currentTab === 'calendario'
-                ? 'bg-emerald-600 text-white'
-                : 'text-stone-400 hover:text-stone-200'
+                ? 'bg-emerald-600 text-white shadow-sm font-semibold'
+                : 'text-stone-300 bg-stone-800/60 hover:bg-stone-800 hover:text-stone-100'
             }`}
           >
             <CalendarDays className="w-3.5 h-3.5" />
@@ -230,10 +230,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             id="mobile-tab-consociazioni"
             onClick={() => onTabChange('consociazioni')}
-            className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg whitespace-nowrap font-medium transition shrink-0 ${
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full whitespace-nowrap font-medium transition shrink-0 ${
               currentTab === 'consociazioni'
-                ? 'bg-emerald-600 text-white'
-                : 'text-stone-400 hover:text-stone-200'
+                ? 'bg-emerald-600 text-white shadow-sm font-semibold'
+                : 'text-stone-300 bg-stone-800/60 hover:bg-stone-800 hover:text-stone-100'
             }`}
           >
             <HeartHandshake className="w-3.5 h-3.5" />
@@ -243,10 +243,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             id="mobile-tab-fiori"
             onClick={() => onTabChange('fiori')}
-            className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg whitespace-nowrap font-medium transition shrink-0 ${
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full whitespace-nowrap font-medium transition shrink-0 ${
               currentTab === 'fiori'
-                ? 'bg-pink-700 text-white'
-                : 'text-stone-400 hover:text-stone-200'
+                ? 'bg-pink-700 text-white shadow-sm font-semibold'
+                : 'text-stone-300 bg-stone-800/60 hover:bg-stone-800 hover:text-stone-100'
             }`}
           >
             <Flower2 className="w-3.5 h-3.5 text-pink-300" />

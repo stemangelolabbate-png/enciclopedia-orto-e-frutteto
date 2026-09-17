@@ -51,37 +51,37 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
   return (
     <div 
       id="plant-detail-modal-overlay"
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 md:p-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
       onClick={onClose}
     >
       <div
         id="plant-detail-modal-content"
-        className="relative bg-white w-full max-w-4xl rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-6 max-h-[90vh] flex flex-col"
+        className="relative bg-white w-full max-w-4xl rounded-t-3xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden max-h-[92vh] sm:max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="bg-stone-900 text-stone-100 p-6 sm:p-8 flex items-start justify-between border-b border-stone-800 shrink-0">
-          <div className="flex items-center space-x-4">
-            <div className="text-4xl sm:text-5xl p-3 bg-stone-800/80 rounded-2xl border border-stone-700 shadow-inner">
+        <div className="bg-stone-900 text-stone-100 p-4 sm:p-8 flex items-start justify-between border-b border-stone-800 shrink-0">
+          <div className="flex items-center space-x-3 sm:space-x-4 min-w-0 pr-2">
+            <div className="text-3xl sm:text-5xl p-2 sm:p-3 bg-stone-800/80 rounded-2xl border border-stone-700 shadow-inner shrink-0">
               {plant.icona}
             </div>
-            <div>
-              <div className="flex flex-wrap items-center gap-2 mb-1">
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-600/30 text-emerald-300 border border-emerald-500/40">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
+                <span className="px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-emerald-600/30 text-emerald-300 border border-emerald-500/40">
                   {plant.categoria.toUpperCase()}
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-800 text-stone-300 border border-stone-700">
+                <span className="px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-stone-800 text-stone-300 border border-stone-700">
                   {plant.sottoCategoria}
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-stone-800 text-amber-300 border border-amber-500/30">
-                  Difficoltà: {plant.difficolta}
+                <span className="px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-stone-800 text-amber-300 border border-amber-500/30">
+                  {plant.difficolta}
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold font-serif text-white tracking-tight">
+              <h2 className="text-xl sm:text-3xl font-bold font-serif text-white tracking-tight truncate">
                 {plant.nome}
               </h2>
-              <p className="text-sm text-stone-400 italic">
-                {plant.nomeScientifico} · Famiglia {plant.famiglia}
+              <p className="text-xs sm:text-sm text-stone-400 italic truncate">
+                {plant.nomeScientifico} · Fam. {plant.famiglia}
               </p>
             </div>
           </div>
@@ -89,15 +89,15 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
           <button
             id="btn-close-modal"
             onClick={onClose}
-            className="p-2 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800 transition"
+            className="p-1.5 sm:p-2 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800 transition shrink-0"
             aria-label="Chiudi scheda"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
 
         {/* Scrollable Body */}
-        <div className="p-6 sm:p-8 overflow-y-auto space-y-8 divide-y divide-stone-100 font-sans">
+        <div className="p-4 sm:p-8 overflow-y-auto space-y-6 sm:space-y-8 divide-y divide-stone-100 font-sans">
           {/* Botanical Introduction */}
           <div>
             <p className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans">
@@ -478,16 +478,16 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
         </div>
 
         {/* Modal Footer CTA */}
-        <div className="p-4 sm:p-6 bg-stone-50 border-t border-stone-200 flex flex-wrap items-center justify-between gap-3 shrink-0">
-          <div className="text-xs text-stone-500">
+        <div className="p-3.5 sm:p-6 bg-stone-50 border-t border-stone-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shrink-0">
+          <div className="text-xs text-stone-500 hidden sm:block">
             Tempo medio stimato per la raccolta: <strong>{plant.giorniRaccolto.min} - {plant.giorniRaccolto.max} giorni</strong>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 w-full sm:w-auto">
             <button
               id="btn-modal-close-footer"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-stone-600 hover:bg-stone-200 text-sm font-medium transition"
+              className="px-3.5 py-2.5 sm:px-4 sm:py-2 rounded-xl text-stone-600 hover:bg-stone-200 text-xs sm:text-sm font-medium transition border border-stone-200 sm:border-0"
             >
               Chiudi
             </button>
@@ -498,10 +498,10 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
                 onClose();
                 onOpenCalculator(plant);
               }}
-              className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white text-sm font-semibold shadow-sm transition"
+              className="flex-1 sm:flex-initial flex items-center justify-center space-x-2 px-4 py-2.5 sm:px-5 sm:py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white text-xs sm:text-sm font-semibold shadow-sm transition active:scale-95"
             >
-              <Calculator className="w-4 h-4" />
-              <span>Calcola o Avvia Semina di {plant.nome}</span>
+              <Calculator className="w-4 h-4 shrink-0" />
+              <span>Calcola Semina di {plant.nome}</span>
             </button>
           </div>
         </div>

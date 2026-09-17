@@ -358,22 +358,21 @@ export default function App() {
         {currentTab === 'enciclopedia' && (
           <div id="view-enciclopedia" className="space-y-6">
             {/* Hero Quick Welcome */}
-            <div className="bg-gradient-to-r from-emerald-900 via-stone-900 to-emerald-950 text-white rounded-3xl p-6 sm:p-8 shadow-md border border-emerald-800/40 relative overflow-hidden">
+            <div className="bg-gradient-to-r from-emerald-900 via-stone-900 to-emerald-950 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-md border border-emerald-800/40 relative overflow-hidden">
               <div className="max-w-2xl">
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-800/60 border border-emerald-700 text-emerald-300 text-xs font-semibold mb-3">
+                <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-emerald-800/60 border border-emerald-700 text-emerald-300 text-[11px] sm:text-xs font-semibold mb-2 sm:mb-3">
                   <BookOpen className="w-3.5 h-3.5" />
-                  <span>Grande Enciclopedia Botanica dell'Orto & Frutteto</span>
+                  <span>Enciclopedia Botanica dell'Orto</span>
                 </div>
-                <h1 className="text-2xl sm:text-4xl font-serif font-bold text-white tracking-tight leading-tight">
+                <h1 className="text-xl sm:text-4xl font-serif font-bold text-white tracking-tight leading-tight">
                   Tutto quello che vuoi coltivare, a portata di ricerca
                 </h1>
-                <p className="text-stone-300 text-sm sm:text-base mt-2 leading-relaxed">
-                  Cerca tra {PLANTS_DATA.length} varietà complete di ortaggi, frutti, legumi, alberi da frutto e piante aromatiche. Calcola i giorni esatti dalla semina, 
-                  scopri le fasi lunari, le consociazioni benefiche e i rimedi biologici contro malattie e parassiti.
+                <p className="text-stone-300 text-xs sm:text-base mt-1.5 sm:mt-2 leading-relaxed line-clamp-2 sm:line-clamp-none">
+                  Cerca tra {PLANTS_DATA.length} varietà complete di ortaggi, frutti, legumi, alberi da frutto e piante aromatiche con giorni esatti di crescita, lune e rimedi biologici.
                 </p>
 
                 {/* Quick Shortcuts */}
-                <div className="flex flex-wrap items-center gap-2.5 mt-5">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mt-3.5 sm:mt-5">
                   <button
                     onClick={() => {
                       setFilters({
@@ -383,7 +382,7 @@ export default function App() {
                         categoria: 'tutti',
                       });
                     }}
-                    className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-2xs"
+                    className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-2xs active:scale-95"
                   >
                     <Calendar className="w-3.5 h-3.5" />
                     <span>Semina ORA ad {MONTH_NAMES[currentMonthNum - 1]}</span>
@@ -391,34 +390,35 @@ export default function App() {
 
                   <button
                     onClick={() => setCurrentTab('orto')}
-                    className="px-3.5 py-2 rounded-xl bg-stone-800/90 hover:bg-stone-700 text-stone-200 text-xs font-semibold flex items-center gap-1.5 transition border border-stone-700"
+                    className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-stone-800/90 hover:bg-stone-700 text-stone-200 text-xs font-semibold flex items-center gap-1.5 transition border border-stone-700 active:scale-95"
                   >
                     <CalendarClock className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Il Mio Orto: {activePlantingsCount} colture attive</span>
+                    <span>Mio Orto ({activePlantingsCount})</span>
                   </button>
 
                   <button
                     onClick={() => setCurrentTab('malattie')}
-                    className="px-3.5 py-2 rounded-xl bg-amber-900/60 hover:bg-amber-800/80 text-amber-200 text-xs font-semibold flex items-center gap-1.5 transition border border-amber-700/60"
+                    className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-amber-900/60 hover:bg-amber-800/80 text-amber-200 text-xs font-semibold flex items-center gap-1.5 transition border border-amber-700/60 active:scale-95"
                   >
                     <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Guida Malattie & Rimedi Bio</span>
+                    <span className="hidden sm:inline">Guida Malattie & Rimedi Bio</span>
+                    <span className="sm:hidden">Malattie Bio</span>
                   </button>
 
                   <button
                     onClick={() => setCurrentTab('fiori')}
-                    className="px-3.5 py-2 rounded-xl bg-pink-950/70 hover:bg-pink-900/80 text-pink-200 text-xs font-semibold flex items-center gap-1.5 transition border border-pink-700/50"
+                    className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-pink-950/70 hover:bg-pink-900/80 text-pink-200 text-xs font-semibold flex items-center gap-1.5 transition border border-pink-700/50 active:scale-95"
                   >
                     <Flower2 className="w-3.5 h-3.5 text-pink-300" />
-                    <span>Giardino dei Fiori (35 varietà)</span>
+                    <span>Fiori & Api (35)</span>
                   </button>
 
                   <button
                     onClick={() => setIsClimateModalOpen(true)}
-                    className="px-3 py-2 rounded-xl bg-stone-900/80 hover:bg-stone-800 text-emerald-300 text-xs font-medium flex items-center gap-1 transition border border-stone-700"
+                    className="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-stone-900/80 hover:bg-stone-800 text-emerald-300 text-xs font-medium flex items-center gap-1 transition border border-stone-700 active:scale-95"
                   >
                     <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Zona: {CLIMATE_ZONES[climateZone].titoloBreve}</span>
+                    <span>{CLIMATE_ZONES[climateZone].titoloBreve}</span>
                   </button>
                 </div>
               </div>

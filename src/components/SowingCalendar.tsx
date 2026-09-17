@@ -55,45 +55,45 @@ export const SowingCalendar: React.FC<SowingCalendarProps> = ({
   return (
     <div id="sowing-calendar-section" className="space-y-6 font-sans">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-stone-900 via-stone-900 to-emerald-950 text-white rounded-3xl p-6 sm:p-8 shadow-md border border-stone-800">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-stone-900 via-stone-900 to-emerald-950 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-md border border-stone-800">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
           <div>
-            <div className="flex items-center space-x-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
-              <CalendarDays className="w-4 h-4" />
-              <span>Guida alle Stagioni, Clima & Fasi Lunari</span>
+            <div className="flex items-center space-x-2 text-emerald-400 text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-1">
+              <CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Stagioni, Clima & Fasi Lunari</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+            <h2 className="text-xl sm:text-3xl font-serif font-bold text-white tracking-tight">
               Calendario Lunare & Semine
             </h2>
-            <p className="text-stone-300 text-sm mt-1 max-w-xl">
-              Scopri cosa seminare all'aperto o al riparo mese per mese, con date calibrate sulla zona geografica del tuo orto.
+            <p className="text-stone-300 text-xs sm:text-sm mt-1 max-w-xl line-clamp-2 sm:line-clamp-none">
+              Scopri cosa seminare all'aperto o al riparo mese per mese, calibrate sul clima del tuo orto.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2 pt-1 sm:pt-0 border-t border-stone-800 sm:border-0">
             {onOpenClimateModal && (
               <button
                 onClick={onOpenClimateModal}
-                className="flex items-center space-x-2 bg-emerald-900/60 hover:bg-emerald-800/80 border border-emerald-700/70 px-3.5 py-2 rounded-2xl transition text-xs font-semibold text-emerald-200"
+                className="flex items-center space-x-1.5 bg-emerald-900/60 hover:bg-emerald-800/80 border border-emerald-700/70 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl sm:rounded-2xl transition text-xs font-semibold text-emerald-200"
                 title="Modifica zona climatica"
               >
-                <MapPin className="w-4 h-4 text-emerald-400" />
+                <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Zona: <strong>{zoneInfo.titoloBreve}</strong></span>
               </button>
             )}
 
-            <div className="flex items-center space-x-2 bg-stone-800/80 border border-stone-700 p-2 px-3 rounded-2xl">
-              <Moon className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="flex items-center space-x-1.5 bg-stone-800/80 border border-stone-700 py-1.5 px-2.5 sm:p-2 sm:px-3 rounded-xl sm:rounded-2xl">
+              <Moon className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span className="text-xs text-stone-300">
-                Mese: <strong className="text-amber-400 text-sm">{MONTH_NAMES[selectedMonth - 1]}</strong>
+                Mese: <strong className="text-amber-400">{MONTH_NAMES[selectedMonth - 1]}</strong>
               </span>
             </div>
           </div>
         </div>
 
         {/* 12 Months Horizontal Selector Bar */}
-        <div className="mt-6 pt-4 border-t border-stone-800 overflow-x-auto">
-          <div className="flex items-center gap-2 min-w-max pb-1">
+        <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-stone-800 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 min-w-max pb-1">
             {MONTH_NAMES.map((monthName, idx) => {
               const monthNum = idx + 1;
               const isCurrent = monthNum === currentRealMonth;
@@ -103,7 +103,7 @@ export const SowingCalendar: React.FC<SowingCalendarProps> = ({
                 <button
                   key={idx}
                   onClick={() => setSelectedMonth(monthNum)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex flex-col items-center gap-0.5 ${
+                  className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold transition flex flex-col items-center gap-0.5 shrink-0 ${
                     isSelected
                       ? 'bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-400'
                       : isCurrent
@@ -113,7 +113,7 @@ export const SowingCalendar: React.FC<SowingCalendarProps> = ({
                 >
                   <span>{monthName}</span>
                   {isCurrent && (
-                    <span className="text-[9px] font-normal text-amber-300">Oggi</span>
+                    <span className="text-[8px] sm:text-[9px] font-normal text-amber-300">Oggi</span>
                   )}
                 </button>
               );

@@ -82,53 +82,53 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
   return (
     <div id="pest-disease-manager-section" className="space-y-6 font-sans">
       {/* Top Banner */}
-      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-emerald-950 text-white rounded-3xl p-6 sm:p-8 shadow-md border border-amber-900/40">
+      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-emerald-950 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-md border border-amber-900/40">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-900/60 border border-amber-700/60 text-amber-300 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-amber-900/60 border border-amber-700/60 text-amber-300 text-[11px] sm:text-xs font-semibold mb-2 sm:mb-3">
             <ShieldAlert className="w-3.5 h-3.5" />
-            <span>Pronto Soccorso Botanico & Difesa Biologica</span>
+            <span>Pronto Soccorso Botanico & Bio</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-white tracking-tight">
-            Guida alle Malattie, Parassiti e Rimedi Bio
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-serif font-bold text-white tracking-tight">
+            Guida Malattie, Parassiti e Rimedi Bio
           </h1>
-          <p className="text-stone-300 text-sm sm:text-base mt-2 leading-relaxed">
-            Riconosci subito i sintomi (foglie macchiate, muffe, insetti masticatori o carenze nutrizionali) e scopri i trattamenti ecologici certificati per proteggere il tuo raccolto a residuo zero.
+          <p className="text-stone-300 text-xs sm:text-base mt-1.5 sm:mt-2 leading-relaxed line-clamp-2 sm:line-clamp-none">
+            Riconosci subito i sintomi (foglie macchiate, muffe, insetti o carenze nutrizionali) e scopri i trattamenti ecologici certificati a residuo zero.
           </p>
         </div>
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="bg-white border border-stone-200 rounded-2xl p-4 sm:p-5 shadow-sm space-y-3">
+      <div className="bg-white border border-stone-200 rounded-2xl p-3.5 sm:p-5 shadow-sm space-y-3">
         <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
-            <Search className="w-5 h-5" />
+          <div className="absolute inset-y-0 left-0 pl-3 sm:pl-3.5 flex items-center pointer-events-none text-stone-400">
+            <Search className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
           <input
             id="input-search-diseases"
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Cerca sintomo, malattia o pianta (es. foglie gialle, peronospora, afidi, pomodoro, sapone molle...)"
-            className="w-full pl-11 pr-10 py-3 rounded-xl border border-stone-300 bg-stone-50 text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white text-sm sm:text-base transition"
+            placeholder="Cerca sintomo, malattia o pianta (es. peronospora, afidi, pomodoro...)"
+            className="w-full pl-9 sm:pl-11 pr-9 sm:pr-10 py-2.5 sm:py-3 rounded-xl border border-stone-300 bg-stone-50 text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white text-xs sm:text-base transition"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
               className="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 hover:text-stone-600"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           )}
         </div>
 
         {/* Category Pills */}
-        <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-stone-100">
-          <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-1 border-t border-stone-100">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar -mx-3.5 px-3.5 sm:mx-0 sm:px-0 sm:flex-wrap">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setCategoryFilter(cat.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition ${
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition shrink-0 ${
                   categoryFilter === cat.id
                     ? 'bg-amber-600 text-white shadow-sm'
                     : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
@@ -140,7 +140,7 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
           </div>
 
           <span className="text-xs text-stone-500">
-            {filteredDiseases.length} problematiche catalogate
+            {filteredDiseases.length} problematiche
           </span>
         </div>
       </div>
@@ -270,7 +270,7 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
       {selectedDisease && (
         <div
           id="disease-detail-modal-overlay"
-          className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 md:p-6"
+          className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
           onClick={() => {
             setSelectedDisease(null);
             if (onClearInitialDisease) onClearInitialDisease();
@@ -278,25 +278,25 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
         >
           <div
             id="disease-detail-modal-content"
-            className="relative bg-white w-full max-w-3xl rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-6 max-h-[90vh] flex flex-col"
+            className="relative bg-white w-full max-w-3xl rounded-t-3xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden max-h-[92vh] sm:max-h-[90vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="bg-stone-900 text-white p-6 sm:p-7 flex items-start justify-between border-b border-stone-800 shrink-0">
-              <div className="flex items-center space-x-3.5">
-                <span className="text-4xl p-2.5 bg-stone-800 rounded-2xl border border-stone-700">
+            <div className="bg-stone-900 text-white p-4 sm:p-7 flex items-start justify-between border-b border-stone-800 shrink-0">
+              <div className="flex items-center space-x-3 sm:space-x-3.5 min-w-0 pr-2">
+                <span className="text-2xl sm:text-4xl p-2 sm:p-2.5 bg-stone-800 rounded-xl sm:rounded-2xl border border-stone-700 shrink-0">
                   {selectedDisease.icona}
                 </span>
-                <div>
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <span className="px-2 py-0.5 rounded text-[11px] font-bold uppercase bg-amber-500 text-stone-950">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                    <span className="px-1.5 py-0.2 sm:px-2 sm:py-0.5 rounded text-[10px] sm:text-[11px] font-bold uppercase bg-amber-500 text-stone-950">
                       {selectedDisease.categoria}
                     </span>
-                    <span className="text-xs text-stone-400 italic">
+                    <span className="text-[11px] sm:text-xs text-stone-400 italic truncate">
                       {selectedDisease.nomeScientifico}
                     </span>
                   </div>
-                  <h2 className="text-2xl font-serif font-bold text-white tracking-tight">
+                  <h2 className="text-lg sm:text-2xl font-serif font-bold text-white tracking-tight truncate">
                     {selectedDisease.nome}
                   </h2>
                 </div>
@@ -307,9 +307,9 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
                   setSelectedDisease(null);
                   if (onClearInitialDisease) onClearInitialDisease();
                 }}
-                className="p-2 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800 transition"
+                className="p-1.5 sm:p-2 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800 transition shrink-0"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
 

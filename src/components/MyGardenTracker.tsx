@@ -66,44 +66,46 @@ export const MyGardenTracker: React.FC<MyGardenTrackerProps> = ({
   return (
     <div id="my-garden-tracker-section" className="space-y-6 font-sans">
       {/* Top Banner & Statistics */}
-      <div className="bg-gradient-to-r from-emerald-900 via-stone-900 to-emerald-950 text-white rounded-3xl p-6 sm:p-8 shadow-md border border-emerald-800/40">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-gradient-to-r from-emerald-900 via-stone-900 to-emerald-950 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-md border border-emerald-800/40">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6">
           <div>
-            <div className="flex items-center space-x-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
-              <Sprout className="w-4 h-4" />
+            <div className="flex items-center space-x-2 text-emerald-400 text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-1">
+              <Sprout className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Diario & Monitoraggio Giornaliero</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+            <h2 className="text-xl sm:text-3xl font-serif font-bold text-white tracking-tight">
               Il Mio Orto Virtuale
             </h2>
-            <p className="text-stone-300 text-sm mt-1 max-w-xl">
+            <p className="text-stone-300 text-xs sm:text-sm mt-1 max-w-xl line-clamp-2 sm:line-clamp-none">
               Segui l'avanzamento giorno per giorno di tutte le tue piante seminate o trapiantate, 
-              con i giorni rimanenti al raccolto, notifiche di annaffiatura e promemoria agronomici.
+              con i giorni rimanenti al raccolto e promemoria agronomici.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="bg-stone-800/80 border border-stone-700/80 rounded-2xl p-3.5 text-center min-w-[90px]">
-              <span className="text-2xl font-extrabold font-mono text-emerald-400 block">
-                {activeCount}
-              </span>
-              <span className="text-[11px] text-stone-400 uppercase font-semibold">In Crescita</span>
-            </div>
+          <div className="flex items-center justify-between sm:justify-start flex-wrap gap-2.5 sm:gap-3 pt-2 sm:pt-0 border-t border-emerald-800/60 sm:border-0">
+            <div className="flex items-center gap-2">
+              <div className="bg-stone-800/80 border border-stone-700/80 rounded-xl sm:rounded-2xl px-3 py-2 sm:p-3.5 text-center min-w-[75px] sm:min-w-[90px]">
+                <span className="text-xl sm:text-2xl font-extrabold font-mono text-emerald-400 block leading-tight">
+                  {activeCount}
+                </span>
+                <span className="text-[10px] sm:text-[11px] text-stone-400 uppercase font-semibold">Crescita</span>
+              </div>
 
-            <div className="bg-stone-800/80 border border-stone-700/80 rounded-2xl p-3.5 text-center min-w-[90px]">
-              <span className="text-2xl font-extrabold font-mono text-amber-400 block">
-                {completedCount}
-              </span>
-              <span className="text-[11px] text-stone-400 uppercase font-semibold">Raccolte</span>
+              <div className="bg-stone-800/80 border border-stone-700/80 rounded-xl sm:rounded-2xl px-3 py-2 sm:p-3.5 text-center min-w-[75px] sm:min-w-[90px]">
+                <span className="text-xl sm:text-2xl font-extrabold font-mono text-amber-400 block leading-tight">
+                  {completedCount}
+                </span>
+                <span className="text-[10px] sm:text-[11px] text-stone-400 uppercase font-semibold">Raccolte</span>
+              </div>
             </div>
 
             <button
               id="btn-add-crop-tracker"
               onClick={onOpenNewPlanting}
-              className="px-4 py-3 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 rounded-2xl text-white font-semibold text-sm flex items-center gap-2 shadow-sm transition shrink-0"
+              className="flex-1 sm:flex-initial px-3.5 py-2.5 sm:px-4 sm:py-3 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 rounded-xl sm:rounded-2xl text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm transition active:scale-95 shrink-0"
             >
               <PlusCircle className="w-4 h-4" />
-              <span>Nuova Coltivazione</span>
+              <span>Nuova Coltura</span>
             </button>
           </div>
         </div>
@@ -245,7 +247,7 @@ export const MyGardenTracker: React.FC<MyGardenTrackerProps> = ({
             <div
               key={planting.id}
               id={`planting-card-${planting.id}`}
-              className={`bg-white rounded-2xl border p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between ${
+              className={`bg-white rounded-2xl border p-4 sm:p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between ${
                 planting.completata
                   ? 'border-stone-300 opacity-85 bg-stone-50/70'
                   : status.percentualeCompletamento >= 100
@@ -255,39 +257,39 @@ export const MyGardenTracker: React.FC<MyGardenTrackerProps> = ({
             >
               <div>
                 {/* Header Row */}
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-3xl p-2.5 bg-stone-50 border border-stone-100 rounded-xl">
+                <div className="flex items-start justify-between gap-2.5 mb-3">
+                  <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0">
+                    <span className="text-2xl sm:text-3xl p-2 sm:p-2.5 bg-stone-50 border border-stone-100 rounded-xl shrink-0">
                       {plant.icona}
                     </span>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-bold text-stone-900">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <h3 className="text-base sm:text-lg font-bold text-stone-900 truncate">
                           {planting.nomePersonalizzato}
                         </h3>
                         {planting.completata && (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-stone-200 text-stone-700">
+                          <span className="px-1.5 py-0.2 rounded-full text-[9px] sm:text-[10px] font-bold bg-stone-200 text-stone-700">
                             Raccolto ✓
                           </span>
                         )}
                       </div>
                       <button
                         onClick={() => onSelectPlant(plant.id)}
-                        className="text-xs text-emerald-700 hover:text-emerald-900 underline flex items-center gap-1 mt-0.5"
+                        className="text-[11px] sm:text-xs text-emerald-700 hover:text-emerald-900 underline flex items-center gap-1 mt-0.5 truncate"
                       >
-                        <span>{plant.nome} ({plant.nomeScientifico})</span>
-                        <Info className="w-3 h-3 inline" />
+                        <span className="truncate">{plant.nome}</span>
+                        <Info className="w-3 h-3 inline shrink-0" />
                       </button>
                     </div>
                   </div>
 
                   {/* Day Counter Big Badge */}
-                  <div className="text-right">
-                    <div className="inline-block px-3 py-1 bg-stone-900 text-amber-400 font-mono font-black text-sm rounded-xl shadow-xs">
+                  <div className="text-right shrink-0">
+                    <div className="inline-block px-2.5 py-1 bg-stone-900 text-amber-400 font-mono font-black text-xs sm:text-sm rounded-xl shadow-xs">
                       Giorno {status.giorniTrascorsi}
                     </div>
-                    <span className="text-[10px] text-stone-500 block mt-0.5">
-                      {planting.tipoAvvio === 'seme' ? 'dalla semina' : 'dal trapianto'}
+                    <span className="text-[9px] sm:text-[10px] text-stone-500 block mt-0.5">
+                      {planting.tipoAvvio === 'seme' ? 'da semina' : 'da trapianto'}
                     </span>
                   </div>
                 </div>
@@ -366,12 +368,12 @@ export const MyGardenTracker: React.FC<MyGardenTrackerProps> = ({
 
                 {/* Quick Care Actions (Watering, Feeding, Pest check) */}
                 {!planting.completata && onLogCareAction && (
-                  <div className="mb-3 p-2.5 bg-stone-50 rounded-xl border border-stone-100 flex flex-wrap items-center justify-between gap-1.5 text-xs">
-                    <span className="text-[11px] font-bold text-stone-600">Registra cura:</span>
-                    <div className="flex items-center gap-1.5">
+                  <div className="mb-3 p-2 sm:p-2.5 bg-stone-50 rounded-xl border border-stone-100 flex flex-wrap items-center justify-between gap-1.5 text-xs">
+                    <span className="text-[11px] font-bold text-stone-600">Cura:</span>
+                    <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
                       <button
                         onClick={() => onLogCareAction(planting.id, 'irrigazione')}
-                        className="px-2 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 flex items-center gap-1 font-medium transition"
+                        className="px-2 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 flex items-center gap-1 font-medium transition active:scale-95 text-[11px] sm:text-xs"
                         title="Registra annaffiatura oggi"
                       >
                         <Droplets className="w-3 h-3 text-blue-600" />
@@ -380,7 +382,7 @@ export const MyGardenTracker: React.FC<MyGardenTrackerProps> = ({
 
                       <button
                         onClick={() => onLogCareAction(planting.id, 'concimazione')}
-                        className="px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1 font-medium transition"
+                        className="px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1 font-medium transition active:scale-95 text-[11px] sm:text-xs"
                         title="Registra concimazione o macerato oggi"
                       >
                         <Sparkles className="w-3 h-3 text-emerald-600" />
@@ -389,11 +391,11 @@ export const MyGardenTracker: React.FC<MyGardenTrackerProps> = ({
 
                       <button
                         onClick={() => onLogCareAction(planting.id, 'difesa')}
-                        className="px-2 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 flex items-center gap-1 font-medium transition"
+                        className="px-2 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 flex items-center gap-1 font-medium transition active:scale-95 text-[11px] sm:text-xs"
                         title="Registra trattamento biologico oggi"
                       >
                         <ShieldAlert className="w-3 h-3 text-amber-600" />
-                        <span>Trattamento</span>
+                        <span>Difesa</span>
                       </button>
                     </div>
                   </div>
@@ -412,7 +414,7 @@ export const MyGardenTracker: React.FC<MyGardenTrackerProps> = ({
                 <button
                   id={`btn-toggle-harvest-${planting.id}`}
                   onClick={() => onToggleComplete(planting.id)}
-                  className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition ${
+                  className={`flex-1 sm:flex-initial flex items-center justify-center space-x-1.5 px-3.5 py-2 sm:py-1.5 rounded-xl text-xs font-semibold transition active:scale-95 ${
                     planting.completata
                       ? 'bg-stone-200 text-stone-700 hover:bg-stone-300'
                       : 'bg-emerald-700 hover:bg-emerald-800 text-white shadow-2xs'
@@ -420,14 +422,14 @@ export const MyGardenTracker: React.FC<MyGardenTrackerProps> = ({
                 >
                   <CheckCircle className="w-3.5 h-3.5" />
                   <span>
-                    {planting.completata ? 'Ripristina in crescita' : 'Segna come Raccolto!'}
+                    {planting.completata ? 'In crescita' : 'Segna come Raccolto!'}
                   </span>
                 </button>
 
                 <button
                   id={`btn-delete-crop-${planting.id}`}
                   onClick={() => onDeletePlanting(planting.id)}
-                  className="p-1.5 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-rose-50 transition"
+                  className="p-2 sm:p-1.5 rounded-lg text-stone-400 hover:text-rose-600 hover:bg-rose-50 transition"
                   title="Elimina coltivazione dal diario"
                   aria-label="Elimina coltivazione"
                 >
