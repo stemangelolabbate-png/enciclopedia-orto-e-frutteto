@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ClimateZone } from '../types';
 import { CLIMATE_ZONES } from '../utils/climateHelper';
 import { MapPin, X, Check, ThermometerSnowflake, SunMedium, Compass } from 'lucide-react';
@@ -19,6 +19,32 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
   isFirstVisit = false,
 }) => {
   if (!isOpen) return null;
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Lock background body scroll and autofocus scroll area on mount
+  useEffect(() => {
+    const origOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const timer = setTimeout(() => {
+      scrollRef.current?.focus();
+    }, 50);
+
+    return () => {
+      document.body.style.overflow = origOverflow;
+      clearTimeout(timer);
+    };
+  }, []);
+
+  // Universal wheel handler: allows mouse wheel to scroll content even if cursor is over header, footer or overlay
+  const handleWheel = (e: React.WheelEvent) => {
+    if (scrollRef.current) {
+      if (!scrollRef.current.contains(e.target as Node)) {
+        scrollRef.current.scrollTop += e.deltaY;
+      }
+    }
+  };
 
   const zones: { id: ClimateZone; icon: React.ReactNode; badge: string; color: string }[] = [
     {
@@ -44,12 +70,15 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
   return (
     <div
       id="climate-modal-overlay"
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/70 backdrop-blur-xs flex flex-col items-center justify-start p-2 sm:p-4 md:p-6 overscroll-contain"
+      className="fixed inset-0 z-50 overflow-hidden bg-stone-900/70 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 md:p-6"
+      onClick={onClose}
+      onWheel={handleWheel}
     >
       <div
         id="climate-modal-content"
-        className="relative bg-white w-full max-w-2xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[94vh] sm:max-h-[90vh] flex flex-col"
+        className="relative bg-white w-full max-w-2xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[96vh] sm:max-h-[92vh] h-full sm:h-auto"
         onClick={(e) => e.stopPropagation()}
+        onWheel={handleWheel}
       >
         {/* Header */}
         <div className="bg-stone-900 text-white p-4 sm:p-7 flex items-start justify-between border-b border-stone-800 shrink-0">
@@ -83,7 +112,11 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
         </div>
 
         {/* Zones List */}
-        <div className="p-4 sm:p-6 space-y-3 sm:space-y-3.5 flex-1 min-h-0 overflow-y-auto font-sans overscroll-contain pb-4">
+        <div 
+          ref={scrollRef}
+          tabIndex={0}
+          className="p-4 sm:p-6 space-y-3 sm:space-y-3.5 flex-1 min-h-0 overflow-y-auto font-sans focus:outline-none pb-8"
+        >
           {zones.map(({ id, icon, badge, color }) => {
             const info = CLIMATE_ZONES[id];
             const isSelected = selectedZone === id;

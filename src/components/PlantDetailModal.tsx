@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Plant, ClimateZone } from '../types';
 import { MONTH_NAMES } from '../data/plants';
 import { getAdjustedMonths, CLIMATE_ZONES } from '../utils/climateHelper';
@@ -40,6 +40,33 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
 }) => {
   if (!plant) return null;
 
+  const bodyScrollRef = useRef<HTMLDivElement>(null);
+
+  // Lock background body scroll and autofocus scrollable container on open
+  useEffect(() => {
+    const origOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    // Focus the scroll area so keyboard & wheel immediately respond
+    const timer = setTimeout(() => {
+      bodyScrollRef.current?.focus();
+    }, 50);
+
+    return () => {
+      document.body.style.overflow = origOverflow;
+      clearTimeout(timer);
+    };
+  }, []);
+
+  // Universal wheel handler: allows mouse wheel to scroll content even if cursor is over header, footer or overlay
+  const handleWheel = (e: React.WheelEvent) => {
+    if (bodyScrollRef.current) {
+      if (!bodyScrollRef.current.contains(e.target as Node)) {
+        bodyScrollRef.current.scrollTop += e.deltaY;
+      }
+    }
+  };
+
   const zoneInfo = CLIMATE_ZONES[climateZone] || CLIMATE_ZONES.centro;
 
   // Compute climate-adjusted months
@@ -51,13 +78,15 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
   return (
     <div 
       id="plant-detail-modal-overlay"
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex flex-col items-center justify-start p-2 sm:p-4 md:p-6 overscroll-contain"
+      className="fixed inset-0 z-50 overflow-hidden bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 md:p-6"
       onClick={onClose}
+      onWheel={handleWheel}
     >
       <div
         id="plant-detail-modal-content"
-        className="relative bg-white w-full max-w-4xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[94vh] sm:max-h-[90vh] flex flex-col"
+        className="relative bg-white w-full max-w-4xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[96vh] sm:max-h-[92vh] h-full sm:h-auto"
         onClick={(e) => e.stopPropagation()}
+        onWheel={handleWheel}
       >
         {/* Modal Header */}
         <div className="bg-stone-900 text-stone-100 p-4 sm:p-7 flex items-start justify-between border-b border-stone-800 shrink-0">
@@ -97,7 +126,11 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
         </div>
 
         {/* Scrollable Body */}
-        <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-8 space-y-6 sm:space-y-8 divide-y divide-stone-100 font-sans overscroll-contain pb-8">
+        <div 
+          ref={bodyScrollRef}
+          tabIndex={0}
+          className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-8 space-y-6 sm:space-y-8 divide-y divide-stone-100 font-sans focus:outline-none pb-12 sm:pb-16"
+        >
           {/* Botanical Introduction */}
           <div>
             <p className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans">
@@ -474,6 +507,14 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
                 "{plant.curiosita}"
               </p>
             </div>
+          </div>
+
+          {/* End of Sheet Indicator */}
+          <div className="pt-8 pb-4 text-center">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium text-stone-400 bg-stone-50 border border-stone-200">
+              <span>🌱 Fine della scheda botanica</span>
+              <span className="font-semibold text-stone-600">· {plant.nome}</span>
+            </span>
           </div>
         </div>
 

@@ -52,6 +52,14 @@ export const SowingCalendar: React.FC<SowingCalendarProps> = ({
     getAdjustedMonths(p.mesiRaccolta, climateZone, 'raccolta').includes(selectedMonth)
   );
 
+  const currentMonthName = MONTH_NAMES[selectedMonth - 1];
+  const prepA = ['a', 'e', 'i', 'o', 'u'].includes(currentMonthName.charAt(0).toLowerCase())
+    ? `ad ${currentMonthName}`
+    : `a ${currentMonthName}`;
+  const prepDi = ['a', 'e', 'i', 'o', 'u'].includes(currentMonthName.charAt(0).toLowerCase())
+    ? `d'${currentMonthName}`
+    : `di ${currentMonthName}`;
+
   return (
     <div id="sowing-calendar-section" className="space-y-6 font-sans">
       {/* Header Banner */}
@@ -66,7 +74,7 @@ export const SowingCalendar: React.FC<SowingCalendarProps> = ({
               Calendario Lunare & Semine
             </h2>
             <p className="text-stone-300 text-xs sm:text-sm mt-1 max-w-xl line-clamp-2 sm:line-clamp-none">
-              Scopri cosa seminare all'aperto o al riparo mese per mese, calibrate sul clima del tuo orto.
+              Scopri cosa seminare all'aperto o al riparo mese per mese, con indicazioni calibrate sul clima del tuo orto.
             </p>
           </div>
 
@@ -187,7 +195,7 @@ export const SowingCalendar: React.FC<SowingCalendarProps> = ({
                 </div>
                 <div>
                   <h3 className="font-bold text-stone-900 font-serif text-base">
-                    Semina in Piena Terra ad {MONTH_NAMES[selectedMonth - 1]}
+                    Semina in Piena Terra {prepA}
                   </h3>
                   <span className="text-[11px] text-stone-500">
                     Semina diretta nei solchi dell'orto all'aperto
@@ -293,7 +301,7 @@ export const SowingCalendar: React.FC<SowingCalendarProps> = ({
                 </div>
                 <div>
                   <h3 className="font-bold text-stone-900 font-serif text-base">
-                    Trapianto Piantine ad {MONTH_NAMES[selectedMonth - 1]}
+                    Trapianto Piantine {prepA}
                   </h3>
                   <span className="text-[11px] text-stone-500">
                     Messa a dimora delle piantine con panetto di terra
@@ -346,10 +354,10 @@ export const SowingCalendar: React.FC<SowingCalendarProps> = ({
                 </div>
                 <div>
                   <h3 className="font-bold text-stone-900 font-serif text-base">
-                    Raccolto & Cestino di {MONTH_NAMES[selectedMonth - 1]}
+                    Raccolto & Cestino {prepDi}
                   </h3>
                   <span className="text-[11px] text-stone-500">
-                    Cosa è maturo e pronto da gustare nell'orto
+                    Cosa è pronto da raccogliere e gustare nell'orto
                   </span>
                 </div>
               </div>

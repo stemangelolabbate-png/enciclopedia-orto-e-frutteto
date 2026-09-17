@@ -236,7 +236,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
               onChange={(e) => handleDifficultyChange(e.target.value as Difficulty | 'tutti')}
               className="bg-stone-100 border border-stone-300 rounded-lg px-2 py-1 text-stone-700 text-xs focus:outline-none focus:ring-1 focus:ring-emerald-500"
             >
-              <option value="tutti">Tutte difficoltà</option>
+              <option value="tutti">Tutte le difficoltà</option>
               <option value="Facile">Facile</option>
               <option value="Media">Media</option>
               <option value="Esperto">Esperto</option>

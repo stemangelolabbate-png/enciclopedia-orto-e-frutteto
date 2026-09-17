@@ -422,7 +422,7 @@ export const MyGardenTracker: React.FC<MyGardenTrackerProps> = ({
                 >
                   <CheckCircle className="w-3.5 h-3.5" />
                   <span>
-                    {planting.completata ? 'In crescita' : 'Segna come Raccolto!'}
+                    {planting.completata ? 'Riporta in crescita' : 'Segna come Raccolto!'}
                   </span>
                 </button>
 

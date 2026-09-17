@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { PestDisease } from '../types';
 import { DISEASES_DATA } from '../data/diseases';
 import { PLANTS_DATA } from '../data/plants';
@@ -36,6 +36,33 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
     }
     return null;
   });
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Lock background body scroll and autofocus scroll area on modal open
+  useEffect(() => {
+    if (!selectedDisease) return;
+    const origOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const timer = setTimeout(() => {
+      scrollRef.current?.focus();
+    }, 50);
+
+    return () => {
+      document.body.style.overflow = origOverflow;
+      clearTimeout(timer);
+    };
+  }, [selectedDisease]);
+
+  // Universal wheel handler: allows mouse wheel to scroll content even if cursor is over header, footer or overlay
+  const handleWheel = (e: React.WheelEvent) => {
+    if (scrollRef.current) {
+      if (!scrollRef.current.contains(e.target as Node)) {
+        scrollRef.current.scrollTop += e.deltaY;
+      }
+    }
+  };
 
   // Filter diseases based on search & category
   const filteredDiseases = useMemo(() => {
@@ -270,16 +297,18 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
       {selectedDisease && (
         <div
           id="disease-detail-modal-overlay"
-          className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex flex-col items-center justify-start p-2 sm:p-4 md:p-6 overscroll-contain"
+          className="fixed inset-0 z-50 overflow-hidden bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 md:p-6"
           onClick={() => {
             setSelectedDisease(null);
             if (onClearInitialDisease) onClearInitialDisease();
           }}
+          onWheel={handleWheel}
         >
           <div
             id="disease-detail-modal-content"
-            className="relative bg-white w-full max-w-3xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[94vh] sm:max-h-[90vh] flex flex-col"
+            className="relative bg-white w-full max-w-3xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[96vh] sm:max-h-[92vh] h-full sm:h-auto"
             onClick={(e) => e.stopPropagation()}
+            onWheel={handleWheel}
           >
             {/* Modal Header */}
             <div className="bg-stone-900 text-white p-4 sm:p-7 flex items-start justify-between border-b border-stone-800 shrink-0">
@@ -314,7 +343,11 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
             </div>
 
             {/* Scrollable Body */}
-            <div className="p-4 sm:p-8 flex-1 min-h-0 overflow-y-auto space-y-6 text-stone-800 overscroll-contain pb-6">
+            <div 
+              ref={scrollRef}
+              tabIndex={0}
+              className="p-4 sm:p-8 flex-1 min-h-0 overflow-y-auto space-y-6 text-stone-800 focus:outline-none pb-12"
+            >
               {/* Description */}
               <p className="text-stone-700 leading-relaxed text-sm sm:text-base">
                 {selectedDisease.descrizione}
@@ -435,6 +468,14 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
                     </div>
                   ))}
                 </div>
+              </div>
+
+              {/* End of Sheet Indicator */}
+              <div className="pt-6 pb-2 text-center">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium text-stone-400 bg-stone-100 border border-stone-200">
+                  <span>🔬 Fine della scheda di diagnosi</span>
+                  <span className="font-semibold text-stone-700">· {selectedDisease.nome}</span>
+                </span>
               </div>
             </div>
 

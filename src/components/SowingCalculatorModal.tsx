@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Plant, ActivePlanting } from '../types';
 import { PLANTS_DATA } from '../data/plants';
 import { calculateGrowthStatus, PHENOLOGICAL_STAGES } from '../utils/gardenCalculator';
@@ -28,6 +28,33 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
   const [selectedPlantId, setSelectedPlantId] = useState<string>(
     initialPlant?.id || PLANTS_DATA[0].id
   );
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Lock background body scroll and autofocus scrollable container on open
+  useEffect(() => {
+    if (!isOpen) return;
+    const origOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const timer = setTimeout(() => {
+      scrollRef.current?.focus();
+    }, 50);
+
+    return () => {
+      document.body.style.overflow = origOverflow;
+      clearTimeout(timer);
+    };
+  }, [isOpen]);
+
+  // Universal wheel handler: allows mouse wheel to scroll content even if cursor is over header, footer or overlay
+  const handleWheel = (e: React.WheelEvent) => {
+    if (scrollRef.current) {
+      if (!scrollRef.current.contains(e.target as Node)) {
+        scrollRef.current.scrollTop += e.deltaY;
+      }
+    }
+  };
   
   // Format today as YYYY-MM-DD
   const getTodayString = () => new Date().toISOString().split('T')[0];
@@ -88,13 +115,15 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
   return (
     <div
       id="sowing-calculator-modal-overlay"
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex flex-col items-center justify-start p-2 sm:p-4 md:p-6 overscroll-contain"
+      className="fixed inset-0 z-50 overflow-hidden bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 md:p-6"
       onClick={onClose}
+      onWheel={handleWheel}
     >
       <div
         id="sowing-calculator-modal-content"
-        className="relative bg-white w-full max-w-2xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[94vh] sm:max-h-[90vh] flex flex-col font-sans"
+        className="relative bg-white w-full max-w-2xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[96vh] sm:max-h-[92vh] h-full sm:h-auto font-sans"
         onClick={(e) => e.stopPropagation()}
+        onWheel={handleWheel}
       >
         {/* Header */}
         <div className="bg-emerald-900 text-white p-4 sm:p-6 flex items-center justify-between border-b border-emerald-800 shrink-0">
@@ -122,7 +151,11 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
         </div>
 
         {/* Modal Form & Live Preview */}
-        <div className="p-4 sm:p-6 space-y-5 flex-1 min-h-0 overflow-y-auto overscroll-contain pb-6">
+        <div 
+          ref={scrollRef}
+          tabIndex={0}
+          className="p-4 sm:p-6 space-y-5 flex-1 min-h-0 overflow-y-auto focus:outline-none pb-12"
+        >
           {/* Plant Selector */}
           <div>
             <label htmlFor="select-calc-plant" className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">

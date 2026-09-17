@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Flower } from '../types';
 import { MONTH_NAMES } from '../data/plants';
 import { 
@@ -23,16 +23,44 @@ interface FlowerDetailModalProps {
 export const FlowerDetailModal: React.FC<FlowerDetailModalProps> = ({ flower, onClose }) => {
   if (!flower) return null;
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Lock background body scroll and autofocus scroll area on mount
+  useEffect(() => {
+    const origOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const timer = setTimeout(() => {
+      scrollRef.current?.focus();
+    }, 50);
+
+    return () => {
+      document.body.style.overflow = origOverflow;
+      clearTimeout(timer);
+    };
+  }, []);
+
+  // Universal wheel handler: allows mouse wheel to scroll content even if cursor is over header, footer or overlay
+  const handleWheel = (e: React.WheelEvent) => {
+    if (scrollRef.current) {
+      if (!scrollRef.current.contains(e.target as Node)) {
+        scrollRef.current.scrollTop += e.deltaY;
+      }
+    }
+  };
+
   return (
     <div 
       id="flower-detail-modal-backdrop" 
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-950/70 backdrop-blur-xs flex flex-col items-center justify-start p-2 sm:p-5 animate-in fade-in duration-200 overscroll-contain"
+      className="fixed inset-0 z-50 overflow-hidden bg-stone-950/70 backdrop-blur-xs flex items-center justify-center p-2 sm:p-5 animate-in fade-in duration-200"
       onClick={onClose}
+      onWheel={handleWheel}
     >
       <div 
         id="flower-detail-modal-container"
-        className="relative w-full max-w-3xl bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl overflow-hidden text-stone-100 my-auto max-h-[94vh] sm:max-h-[90vh] flex flex-col"
+        className="relative w-full max-w-3xl bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl overflow-hidden text-stone-100 flex flex-col max-h-[96vh] sm:max-h-[92vh] h-full sm:h-auto"
         onClick={(e) => e.stopPropagation()}
+        onWheel={handleWheel}
       >
         {/* Modal Header Banner */}
         <div className="relative bg-gradient-to-r from-pink-950/80 via-purple-950/80 to-stone-900 p-4 sm:p-6 border-b border-stone-800 shrink-0">
@@ -93,7 +121,11 @@ export const FlowerDetailModal: React.FC<FlowerDetailModalProps> = ({ flower, on
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto space-y-6 text-sm text-stone-300 overscroll-contain pb-6">
+        <div 
+          ref={scrollRef}
+          tabIndex={0}
+          className="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto space-y-6 text-sm text-stone-300 focus:outline-none pb-12"
+        >
           
           {/* Description */}
           <div className="bg-stone-800/40 rounded-xl p-4 border border-stone-800">
@@ -292,6 +324,14 @@ export const FlowerDetailModal: React.FC<FlowerDetailModalProps> = ({ flower, on
             <p className="text-stone-300 text-sm italic leading-relaxed">
               "{flower.curiosita}"
             </p>
+          </div>
+
+          {/* End of Sheet Indicator */}
+          <div className="pt-6 pb-2 text-center">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium text-stone-400 bg-stone-800/80 border border-stone-700">
+              <span>🌸 Fine della scheda floreale</span>
+              <span className="font-semibold text-pink-300">· {flower.nome}</span>
+            </span>
           </div>
         </div>
 
