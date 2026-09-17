@@ -26,12 +26,12 @@ export const FlowerDetailModal: React.FC<FlowerDetailModalProps> = ({ flower, on
   return (
     <div 
       id="flower-detail-modal-backdrop" 
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-950/70 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-5 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 overflow-y-auto bg-stone-950/70 backdrop-blur-xs flex flex-col items-center justify-start p-2 sm:p-5 animate-in fade-in duration-200 overscroll-contain"
       onClick={onClose}
     >
       <div 
         id="flower-detail-modal-container"
-        className="relative w-full max-w-3xl bg-stone-900 border border-stone-800 rounded-t-3xl sm:rounded-2xl shadow-2xl overflow-hidden text-stone-100 max-h-[92vh] sm:max-h-[90vh] flex flex-col"
+        className="relative w-full max-w-3xl bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl overflow-hidden text-stone-100 my-auto max-h-[94vh] sm:max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header Banner */}
@@ -93,7 +93,7 @@ export const FlowerDetailModal: React.FC<FlowerDetailModalProps> = ({ flower, on
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="p-5 sm:p-6 max-h-[75vh] overflow-y-auto space-y-6 text-sm text-stone-300">
+        <div className="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto space-y-6 text-sm text-stone-300 overscroll-contain pb-6">
           
           {/* Description */}
           <div className="bg-stone-800/40 rounded-xl p-4 border border-stone-800">

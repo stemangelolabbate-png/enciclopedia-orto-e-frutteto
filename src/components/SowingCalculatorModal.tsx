@@ -88,12 +88,12 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
   return (
     <div
       id="sowing-calculator-modal-overlay"
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex flex-col items-center justify-start p-2 sm:p-4 md:p-6 overscroll-contain"
       onClick={onClose}
     >
       <div
         id="sowing-calculator-modal-content"
-        className="relative bg-white w-full max-w-2xl rounded-t-3xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden max-h-[92vh] sm:max-h-[85vh] flex flex-col font-sans"
+        className="relative bg-white w-full max-w-2xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[94vh] sm:max-h-[90vh] flex flex-col font-sans"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -122,7 +122,7 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
         </div>
 
         {/* Modal Form & Live Preview */}
-        <div className="p-5 sm:p-6 space-y-6 overflow-y-auto max-h-[80vh]">
+        <div className="p-4 sm:p-6 space-y-5 flex-1 min-h-0 overflow-y-auto overscroll-contain pb-6">
           {/* Plant Selector */}
           <div>
             <label htmlFor="select-calc-plant" className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">

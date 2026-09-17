@@ -51,16 +51,16 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
   return (
     <div 
       id="plant-detail-modal-overlay"
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex flex-col items-center justify-start p-2 sm:p-4 md:p-6 overscroll-contain"
       onClick={onClose}
     >
       <div
         id="plant-detail-modal-content"
-        className="relative bg-white w-full max-w-4xl rounded-t-3xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden max-h-[92vh] sm:max-h-[90vh] flex flex-col"
+        className="relative bg-white w-full max-w-4xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[94vh] sm:max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="bg-stone-900 text-stone-100 p-4 sm:p-8 flex items-start justify-between border-b border-stone-800 shrink-0">
+        <div className="bg-stone-900 text-stone-100 p-4 sm:p-7 flex items-start justify-between border-b border-stone-800 shrink-0">
           <div className="flex items-center space-x-3 sm:space-x-4 min-w-0 pr-2">
             <div className="text-3xl sm:text-5xl p-2 sm:p-3 bg-stone-800/80 rounded-2xl border border-stone-700 shadow-inner shrink-0">
               {plant.icona}
@@ -97,7 +97,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
         </div>
 
         {/* Scrollable Body */}
-        <div className="p-4 sm:p-8 overflow-y-auto space-y-6 sm:space-y-8 divide-y divide-stone-100 font-sans">
+        <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-8 space-y-6 sm:space-y-8 divide-y divide-stone-100 font-sans overscroll-contain pb-8">
           {/* Botanical Introduction */}
           <div>
             <p className="text-base sm:text-lg text-stone-700 leading-relaxed font-sans">

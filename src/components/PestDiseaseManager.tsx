@@ -270,7 +270,7 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
       {selectedDisease && (
         <div
           id="disease-detail-modal-overlay"
-          className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
+          className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex flex-col items-center justify-start p-2 sm:p-4 md:p-6 overscroll-contain"
           onClick={() => {
             setSelectedDisease(null);
             if (onClearInitialDisease) onClearInitialDisease();
@@ -278,7 +278,7 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
         >
           <div
             id="disease-detail-modal-content"
-            className="relative bg-white w-full max-w-3xl rounded-t-3xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden max-h-[92vh] sm:max-h-[90vh] flex flex-col"
+            className="relative bg-white w-full max-w-3xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[94vh] sm:max-h-[90vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -314,7 +314,7 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
             </div>
 
             {/* Scrollable Body */}
-            <div className="p-6 sm:p-8 overflow-y-auto space-y-6 text-stone-800">
+            <div className="p-4 sm:p-8 flex-1 min-h-0 overflow-y-auto space-y-6 text-stone-800 overscroll-contain pb-6">
               {/* Description */}
               <p className="text-stone-700 leading-relaxed text-sm sm:text-base">
                 {selectedDisease.descrizione}

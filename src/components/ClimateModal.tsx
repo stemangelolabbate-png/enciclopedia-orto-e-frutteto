@@ -44,11 +44,11 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
   return (
     <div
       id="climate-modal-overlay"
-      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/70 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/70 backdrop-blur-xs flex flex-col items-center justify-start p-2 sm:p-4 md:p-6 overscroll-contain"
     >
       <div
         id="climate-modal-content"
-        className="relative bg-white w-full max-w-2xl rounded-t-3xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden max-h-[92vh] sm:max-h-[85vh] flex flex-col"
+        className="relative bg-white w-full max-w-2xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[94vh] sm:max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -83,7 +83,7 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
         </div>
 
         {/* Zones List */}
-        <div className="p-4 sm:p-6 space-y-3 sm:space-y-3.5 overflow-y-auto font-sans flex-1">
+        <div className="p-4 sm:p-6 space-y-3 sm:space-y-3.5 flex-1 min-h-0 overflow-y-auto font-sans overscroll-contain pb-4">
           {zones.map(({ id, icon, badge, color }) => {
             const info = CLIMATE_ZONES[id];
             const isSelected = selectedZone === id;

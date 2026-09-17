@@ -1,5 +1,36 @@
 @import "tailwindcss";
 
+@layer base {
+  /* Ensure smooth scrolling and prevent content cut-off */
+  html, body {
+    overscroll-behavior-y: none;
+  }
+
+  /* Custom visible, draggable scrollbar for desktop & iframe */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #a8a29e;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #78716c;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #a8a29e transparent;
+  }
+}
+
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
