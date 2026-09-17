@@ -42,7 +42,7 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
     }, 50);
 
     return () => {
-      document.body.style.overflow = origOverflow;
+      document.body.style.overflow = '';
       clearTimeout(timer);
     };
   }, [isOpen]);

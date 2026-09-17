@@ -138,6 +138,13 @@ export default function App() {
     }
   }, [plantings]);
 
+  // Failsafe: Assicura che lo scorrimento della pagina principale sia sempre ripristinato quando le modali sono chiuse
+  useEffect(() => {
+    if (!selectedPlant && !calculatorOpen && !isClimateModalOpen) {
+      document.body.style.overflow = '';
+    }
+  }, [selectedPlant, calculatorOpen, isClimateModalOpen]);
+
   // Handle Climate Zone Change
   const handleSelectClimateZone = (zone: ClimateZone) => {
     setClimateZone(zone);

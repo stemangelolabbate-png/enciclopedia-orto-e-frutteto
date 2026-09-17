@@ -18,13 +18,11 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
   onSelectZone,
   isFirstVisit = false,
 }) => {
-  if (!isOpen) return null;
-
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Lock background body scroll and autofocus scroll area on mount
   useEffect(() => {
-    const origOverflow = document.body.style.overflow;
+    if (!isOpen) return;
     document.body.style.overflow = 'hidden';
 
     const timer = setTimeout(() => {
@@ -32,10 +30,10 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
     }, 50);
 
     return () => {
-      document.body.style.overflow = origOverflow;
+      document.body.style.overflow = '';
       clearTimeout(timer);
     };
-  }, []);
+  }, [isOpen]);
 
   // Universal wheel handler: allows mouse wheel to scroll content even if cursor is over header, footer or overlay
   const handleWheel = (e: React.WheelEvent) => {
@@ -45,6 +43,8 @@ export const ClimateModal: React.FC<ClimateModalProps> = ({
       }
     }
   };
+
+  if (!isOpen) return null;
 
   const zones: { id: ClimateZone; icon: React.ReactNode; badge: string; color: string }[] = [
     {

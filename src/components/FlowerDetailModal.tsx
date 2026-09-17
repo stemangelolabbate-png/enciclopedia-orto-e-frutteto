@@ -21,13 +21,11 @@ interface FlowerDetailModalProps {
 }
 
 export const FlowerDetailModal: React.FC<FlowerDetailModalProps> = ({ flower, onClose }) => {
-  if (!flower) return null;
-
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Lock background body scroll and autofocus scroll area on mount
   useEffect(() => {
-    const origOverflow = document.body.style.overflow;
+    if (!flower) return;
     document.body.style.overflow = 'hidden';
 
     const timer = setTimeout(() => {
@@ -35,10 +33,10 @@ export const FlowerDetailModal: React.FC<FlowerDetailModalProps> = ({ flower, on
     }, 50);
 
     return () => {
-      document.body.style.overflow = origOverflow;
+      document.body.style.overflow = '';
       clearTimeout(timer);
     };
-  }, []);
+  }, [flower]);
 
   // Universal wheel handler: allows mouse wheel to scroll content even if cursor is over header, footer or overlay
   const handleWheel = (e: React.WheelEvent) => {
@@ -48,6 +46,8 @@ export const FlowerDetailModal: React.FC<FlowerDetailModalProps> = ({ flower, on
       }
     }
   };
+
+  if (!flower) return null;
 
   return (
     <div 

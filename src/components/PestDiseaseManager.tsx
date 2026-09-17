@@ -50,9 +50,16 @@ export const PestDiseaseManager: React.FC<PestDiseaseManagerProps> = ({
     }, 50);
 
     return () => {
-      document.body.style.overflow = origOverflow;
+      document.body.style.overflow = '';
       clearTimeout(timer);
     };
+  }, [selectedDisease]);
+
+  // Failsafe: ripristina lo scorrimento del body quando la modale dell'avversità si chiude
+  useEffect(() => {
+    if (!selectedDisease) {
+      document.body.style.overflow = '';
+    }
   }, [selectedDisease]);
 
   // Universal wheel handler: allows mouse wheel to scroll content even if cursor is over header, footer or overlay

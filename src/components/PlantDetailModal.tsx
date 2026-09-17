@@ -38,13 +38,11 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
   climateZone = 'centro',
   onOpenDiseaseManager,
 }) => {
-  if (!plant) return null;
-
   const bodyScrollRef = useRef<HTMLDivElement>(null);
 
   // Lock background body scroll and autofocus scrollable container on open
   useEffect(() => {
-    const origOverflow = document.body.style.overflow;
+    if (!plant) return;
     document.body.style.overflow = 'hidden';
 
     // Focus the scroll area so keyboard & wheel immediately respond
@@ -53,10 +51,10 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
     }, 50);
 
     return () => {
-      document.body.style.overflow = origOverflow;
+      document.body.style.overflow = '';
       clearTimeout(timer);
     };
-  }, []);
+  }, [plant]);
 
   // Universal wheel handler: allows mouse wheel to scroll content even if cursor is over header, footer or overlay
   const handleWheel = (e: React.WheelEvent) => {
@@ -66,6 +64,8 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
       }
     }
   };
+
+  if (!plant) return null;
 
   const zoneInfo = CLIMATE_ZONES[climateZone] || CLIMATE_ZONES.centro;
 

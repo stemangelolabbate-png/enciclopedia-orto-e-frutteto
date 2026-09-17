@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Flower, FlowerType, Sunlight, Difficulty } from '../types';
 import { FLOWERS_DATA } from '../data/flowersData';
 import { MONTH_NAMES } from '../data/plants';
@@ -34,6 +34,13 @@ export const FlowersSection: React.FC = () => {
 
   // Selected Flower for Modal
   const [selectedFlower, setSelectedFlower] = useState<Flower | null>(null);
+
+  // Failsafe: ripristina lo scorrimento del body quando la modale del fiore si chiude
+  useEffect(() => {
+    if (!selectedFlower) {
+      document.body.style.overflow = '';
+    }
+  }, [selectedFlower]);
 
   // Available flower types
   const flowerTypes: FlowerType[] = [
