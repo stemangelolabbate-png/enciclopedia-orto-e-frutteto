@@ -4,6 +4,7 @@ import { PLANTS_DATA, MONTH_NAMES } from './data/plants';
 import { matchesPlantQuery, calculatePlantRelevanceScore } from './utils/searchHelper';
 import { getAdjustedMonths, CLIMATE_ZONES } from './utils/climateHelper';
 import { calculateGrowthStatus } from './utils/gardenCalculator';
+import { getPlantFromUrl, syncUrlWithPlant, updateSeoForPlant } from './utils/seoHelper';
 import { Navbar } from './components/Navbar';
 import { SearchAndFilters } from './components/SearchAndFilters';
 import { PlantCard } from './components/PlantCard';
@@ -110,8 +111,10 @@ export default function App() {
     return INITIAL_SAMPLE_PLANTINGS;
   });
 
-  // Modals state
-  const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
+  // Modals state - initialized from URL deep link if present (e.g. ?pianta=melanzana)
+  const [selectedPlant, setSelectedPlant] = useState<Plant | null>(() => {
+    return getPlantFromUrl(PLANTS_DATA);
+  });
   const [calculatorOpen, setCalculatorOpen] = useState<boolean>(false);
   const [calculatorInitialPlant, setCalculatorInitialPlant] = useState<Plant | null>(null);
   const [notification, setNotification] = useState<string | null>(null);
@@ -128,6 +131,22 @@ export default function App() {
     esposizione: 'tutti',
     ordinamento: 'nome',
   });
+
+  // Dynamic SEO & URL deep linking synchronization
+  useEffect(() => {
+    syncUrlWithPlant(selectedPlant);
+    updateSeoForPlant(selectedPlant);
+  }, [selectedPlant]);
+
+  // Handle browser back / forward navigation (popstate)
+  useEffect(() => {
+    const handlePopState = () => {
+      const plant = getPlantFromUrl(PLANTS_DATA);
+      setSelectedPlant(plant);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Persist plantings
   useEffect(() => {

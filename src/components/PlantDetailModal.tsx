@@ -1,7 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Plant, ClimateZone } from '../types';
 import { MONTH_NAMES } from '../data/plants';
 import { getAdjustedMonths, CLIMATE_ZONES } from '../utils/climateHelper';
+import { getPlantDirectUrl } from '../utils/seoHelper';
 import { 
   X, 
   Clock, 
@@ -18,7 +19,9 @@ import {
   Calculator,
   Layers,
   MapPin,
-  ExternalLink
+  ExternalLink,
+  Share2,
+  Check
 } from 'lucide-react';
 
 interface PlantDetailModalProps {
@@ -39,6 +42,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
   onOpenDiseaseManager,
 }) => {
   const bodyScrollRef = useRef<HTMLDivElement>(null);
+  const [copiedLink, setCopiedLink] = useState(false);
 
   // Lock background body scroll and autofocus scrollable container on open
   useEffect(() => {
@@ -55,6 +59,28 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
       clearTimeout(timer);
     };
   }, [plant]);
+
+  // Handle direct share link copy
+  const handleCopyLink = async () => {
+    if (!plant) return;
+    const url = getPlantDirectUrl(plant.id);
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const input = document.createElement('input');
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+      }
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2500);
+    } catch {
+      // fallback
+    }
+  };
 
   // Universal wheel handler: allows mouse wheel to scroll content even if cursor is over header, footer or overlay
   const handleWheel = (e: React.WheelEvent) => {
@@ -115,14 +141,40 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
             </div>
           </div>
 
-          <button
-            id="btn-close-modal"
-            onClick={onClose}
-            className="p-1.5 sm:p-2 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800 transition shrink-0"
-            aria-label="Chiudi scheda"
-          >
-            <X className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
+          <div className="flex items-center space-x-1 sm:space-x-1.5 shrink-0">
+            <button
+              id="btn-copy-plant-link"
+              onClick={handleCopyLink}
+              title="Copia link diretto condivisibile (apre subito questa scheda)"
+              className={`p-1.5 sm:p-2 rounded-xl transition flex items-center space-x-1 text-xs font-semibold ${
+                copiedLink 
+                  ? 'bg-emerald-700 text-white' 
+                  : 'text-stone-400 hover:text-white hover:bg-stone-800'
+              }`}
+              aria-label="Copia link scheda"
+            >
+              {copiedLink ? (
+                <>
+                  <Check className="w-4 h-4 text-emerald-300" />
+                  <span className="hidden sm:inline text-xs text-emerald-200">Link Copiato!</span>
+                </>
+              ) : (
+                <>
+                  <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="hidden sm:inline text-xs text-stone-300">Copia Link</span>
+                </>
+              )}
+            </button>
+
+            <button
+              id="btn-close-modal"
+              onClick={onClose}
+              className="p-1.5 sm:p-2 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800 transition shrink-0"
+              aria-label="Chiudi scheda"
+            >
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
+          </div>
         </div>
 
         {/* Scrollable Body */}
