@@ -509,17 +509,40 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
             </div>
           </div>
 
-          {/* End of Sheet Indicator */}
-          <div className="pt-8 pb-4 text-center">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium text-stone-400 bg-stone-50 border border-stone-200">
+          {/* Pulsanti Azione a Fine Scheda */}
+          <div className="pt-6 pb-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button
+              id="btn-inline-modal-close"
+              onClick={onClose}
+              className="w-full sm:w-auto px-6 py-2.5 rounded-xl text-stone-700 hover:text-stone-950 bg-stone-100 hover:bg-stone-200 text-sm font-semibold transition border border-stone-300 active:scale-95 cursor-pointer shadow-2xs"
+            >
+              Chiudi
+            </button>
+
+            <button
+              id="btn-inline-modal-calc"
+              onClick={() => {
+                onClose();
+                onOpenCalculator(plant);
+              }}
+              className="w-full sm:w-auto flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white text-sm font-bold shadow-md transition active:scale-95 cursor-pointer"
+            >
+              <Calculator className="w-4 h-4 shrink-0" />
+              <span>Calcola giorni di semina di {plant.nome}</span>
+            </button>
+          </div>
+
+          {/* Messaggio Fine Scheda (posizionato dopo i due pulsanti) */}
+          <div className="pt-2 pb-8 text-center">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium text-stone-500 bg-stone-100/90 border border-stone-200">
               <span>🌱 Fine della scheda botanica</span>
-              <span className="font-semibold text-stone-600">· {plant.nome}</span>
+              <span className="font-semibold text-stone-700">· {plant.nome}</span>
             </span>
           </div>
         </div>
 
         {/* Modal Footer CTA */}
-        <div className="p-3.5 sm:p-6 bg-stone-50 border-t border-stone-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shrink-0">
+        <div className="p-3.5 sm:p-5 bg-stone-50 border-t border-stone-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shrink-0">
           <div className="text-xs text-stone-500 hidden sm:block">
             Tempo medio stimato per la raccolta: <strong>{plant.giorniRaccolto.min} - {plant.giorniRaccolto.max} giorni</strong>
           </div>
@@ -528,7 +551,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
             <button
               id="btn-modal-close-footer"
               onClick={onClose}
-              className="px-3.5 py-2.5 sm:px-4 sm:py-2 rounded-xl text-stone-600 hover:bg-stone-200 text-xs sm:text-sm font-medium transition border border-stone-200 sm:border-0"
+              className="px-4 py-2.5 rounded-xl text-stone-600 hover:bg-stone-200 text-xs sm:text-sm font-medium transition border border-stone-200 sm:border-0"
             >
               Chiudi
             </button>
@@ -542,7 +565,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
               className="flex-1 sm:flex-initial flex items-center justify-center space-x-2 px-4 py-2.5 sm:px-5 sm:py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white text-xs sm:text-sm font-semibold shadow-sm transition active:scale-95"
             >
               <Calculator className="w-4 h-4 shrink-0" />
-              <span>Calcola Semina di {plant.nome}</span>
+              <span>Calcola giorni di semina</span>
             </button>
           </div>
         </div>

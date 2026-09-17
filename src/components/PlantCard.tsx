@@ -49,7 +49,7 @@ export const PlantCard: React.FC<PlantCardProps> = ({
     >
       <div className="p-4 sm:p-5">
         {/* Top Badges & Status */}
-        <div className="flex items-start justify-between gap-2 mb-2.5 sm:mb-3">
+        <div className="flex items-start justify-between gap-2 mb-2.5 sm:mb-3 min-h-[26px]">
           <div className="flex flex-wrap gap-1.5 items-center">
             <span
               className={`px-2 sm:px-2.5 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold border ${getDifficultyBadge(
@@ -65,32 +65,38 @@ export const PlantCard: React.FC<PlantCardProps> = ({
 
           {/* Sowing Status Badge */}
           {isSowableNowInGround && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs shrink-0 whitespace-nowrap">
               Semina ora
             </span>
           )}
           {!isSowableNowInGround && isSowableNowInNursery && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200 shadow-2xs">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200 shadow-2xs shrink-0 whitespace-nowrap">
               Semenzaio ora
             </span>
           )}
           {!isSowableNowInGround && !isSowableNowInNursery && isHarvestableNow && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold bg-orange-50 text-orange-800 border border-orange-200">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold bg-orange-50 text-orange-800 border border-orange-200 shrink-0 whitespace-nowrap">
               Raccolta ora
             </span>
           )}
         </div>
 
         {/* Title & Scientific Info */}
-        <div className="flex items-center space-x-2.5 sm:space-x-3 mb-2">
-          <span className="text-2xl sm:text-3xl p-1.5 sm:p-2 rounded-xl bg-stone-50 border border-stone-100 group-hover:scale-110 transition-transform duration-200 shrink-0">
+        <div className="flex items-start space-x-2.5 sm:space-x-3 mb-2 min-h-[50px]">
+          <span className="text-2xl sm:text-3xl p-1.5 sm:p-2 rounded-xl bg-stone-50 border border-stone-100 group-hover:scale-110 transition-transform duration-200 shrink-0 mt-0.5">
             {plant.icona}
           </span>
           <div className="min-w-0 flex-1">
-            <h3 className="text-base sm:text-lg font-bold text-stone-900 group-hover:text-emerald-700 transition truncate">
+            <h3 
+              className="text-base sm:text-lg font-bold text-stone-900 group-hover:text-emerald-700 transition leading-snug line-clamp-2"
+              title={plant.nome}
+            >
               {plant.nome}
             </h3>
-            <p className="text-[11px] sm:text-xs text-stone-500 italic truncate">
+            <p 
+              className="text-[11px] sm:text-xs text-stone-500 italic line-clamp-1 mt-0.5"
+              title={`${plant.nomeScientifico} · ${plant.famiglia}`}
+            >
               {plant.nomeScientifico} · {plant.famiglia}
             </p>
           </div>

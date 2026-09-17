@@ -326,8 +326,19 @@ export const FlowerDetailModal: React.FC<FlowerDetailModalProps> = ({ flower, on
             </p>
           </div>
 
-          {/* End of Sheet Indicator */}
-          <div className="pt-6 pb-2 text-center">
+          {/* Pulsante Azione Fine Scheda */}
+          <div className="pt-6 pb-2 flex justify-center">
+            <button
+              id="btn-inline-flower-modal-close"
+              onClick={onClose}
+              className="px-6 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 text-sm font-semibold transition border border-stone-700 active:scale-95 shadow-2xs"
+            >
+              Chiudi Scheda
+            </button>
+          </div>
+
+          {/* End of Sheet Indicator (dopo il pulsante) */}
+          <div className="pt-2 pb-6 text-center">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium text-stone-400 bg-stone-800/80 border border-stone-700">
               <span>🌸 Fine della scheda floreale</span>
               <span className="font-semibold text-pink-300">· {flower.nome}</span>
