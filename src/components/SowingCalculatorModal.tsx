@@ -115,13 +115,13 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
   return (
     <div
       id="sowing-calculator-modal-overlay"
-      className="fixed inset-0 z-50 overflow-hidden bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 md:p-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex flex-col items-center justify-start sm:justify-center p-2 sm:p-4 overscroll-contain"
       onClick={onClose}
       onWheel={handleWheel}
     >
       <div
         id="sowing-calculator-modal-content"
-        className="relative bg-white w-full max-w-2xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[96vh] sm:max-h-[92vh] h-full sm:h-auto font-sans"
+        className="relative bg-white w-full max-w-2xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[92vh] sm:max-h-[88vh] my-auto shrink-0 font-sans"
         onClick={(e) => e.stopPropagation()}
         onWheel={handleWheel}
       >
@@ -373,6 +373,19 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
               className="w-full px-3.5 py-2 rounded-xl border border-stone-300 bg-stone-50 text-stone-900 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
+
+          {/* Pulsante Azione Diretto a fine modulo */}
+          <div className="pt-2 pb-1">
+            <button
+              id="btn-save-to-garden-inline"
+              type="button"
+              onClick={handleSave}
+              className="w-full flex items-center justify-center space-x-2 py-3 px-5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white text-sm sm:text-base font-bold shadow-md transition active:scale-95 cursor-pointer"
+            >
+              <BookmarkPlus className="w-5 h-5 shrink-0" />
+              <span>Aggiungi all'Orto (Salva nel Diario)</span>
+            </button>
+          </div>
         </div>
 
         {/* Footer Actions */}
@@ -392,7 +405,7 @@ export const SowingCalculatorModal: React.FC<SowingCalculatorModalProps> = ({
             className="flex-1 sm:flex-initial flex items-center justify-center space-x-2 px-4 py-2.5 sm:px-5 sm:py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white text-xs sm:text-sm font-semibold shadow-sm transition active:scale-95"
           >
             <BookmarkPlus className="w-4 h-4 shrink-0" />
-            <span>Salva nel Mio Orto</span>
+            <span>Aggiungi all'Orto</span>
           </button>
         </div>
       </div>

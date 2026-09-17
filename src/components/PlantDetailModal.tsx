@@ -78,13 +78,13 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
   return (
     <div 
       id="plant-detail-modal-overlay"
-      className="fixed inset-0 z-50 overflow-hidden bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 md:p-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex flex-col items-center justify-start sm:justify-center p-2 sm:p-4 overscroll-contain"
       onClick={onClose}
       onWheel={handleWheel}
     >
       <div
         id="plant-detail-modal-content"
-        className="relative bg-white w-full max-w-4xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[96vh] sm:max-h-[92vh] h-full sm:h-auto"
+        className="relative bg-white w-full max-w-4xl rounded-2xl sm:rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[92vh] sm:max-h-[88vh] my-auto shrink-0"
         onClick={(e) => e.stopPropagation()}
         onWheel={handleWheel}
       >
